@@ -25,11 +25,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Dependencies & Setup Project
+      - name: Prepare Web Directory & Setup Capacitor
         run: |
+          mkdir -p www
+          cp index.html www/
+          cp front_image.jpg www/ 2>/dev/null || true
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "Songs Book" "com.rccm.songsbook" --web-dir .
+          npx cap init "Songs Book" "com.rccm.songsbook" --web-dir www
           npx cap add android
           npx cap sync android
 
