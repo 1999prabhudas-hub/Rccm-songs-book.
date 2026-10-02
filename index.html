@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>క్రీస్తు పునరుత్థాన సంఘం - పాటల పుస్తకం</title>
+  <style>
+    :root {
+      --primary: #7a0c11;
+      --primary-dark: #500508;
+      --gold: #d4af37;
+      --gold-light: #f7e7a9;
+      --bg: #fdfbf7;
+      --card-bg: #ffffff;
+      --text: #2c2c2c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .hero-header {
+      background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      text-align: center;
+      padding: 24px 16px 20px;
+      border-bottom: 4px solid var(--gold);
+      border-radius: 0 0 28px 28px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    .photo-frame {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      overflow: hidden;
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.6);
+      background: #fff;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tribute-subtitle {
+      font-size: 13px;
+      color: var(--gold-light);
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .church-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+      margin-bottom: 10px;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      background: #112d4e;
+      color: var(--gold-light);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 6px 20px;
+      border-radius: 30px;
+      border: 1.5px solid var(--gold);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    }
+
+    .sticky-bar {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      padding: 12px 16px;
+      z-index: 10;
+    }
+
+    .search-wrapper {
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 14px 44px 14px 18px;
+      font-size: 15px;
+      border: 1.5px solid #e0d5c1;
+      border-radius: 14px;
+      background: #fff;
+      outline: none;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #888;
+    }
+
+    .song-container {
+      padding: 4px 16px 24px;
+      flex: 1;
+    }
+
+    .song-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      cursor: pointer;
+      transition: transform 0.15s, background-color 0.15s;
+    }
+
+    .song-card:active {
+      transform: scale(0.98);
+      background: #fbf3f3;
+    }
+
+    .song-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .song-badge {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      min-width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+    }
+
+    .song-text-info h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 3px;
+    }
+
+    .song-text-info p {
+      font-size: 12px;
+      color: #777;
+    }
+
+    .arrow-icon {
+      font-size: 18px;
+      color: #aaa;
+    }
+
+    .lyrics-view {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+    }
+
+    .lyrics-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .lyrics-topbar button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+    }
+
+    .lyrics-tools {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .tool-btn {
+      background: rgba(255,255,255,0.2) !important;
+      border-radius: 8px;
+      padding: 4px 10px !important;
+      font-size: 14px !important;
+      font-weight: 700;
+    }
+
+    .lyrics-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .lyrics-title-big {
+      font-size: 22px;
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-weight: 800;
+      border-bottom: 1px dashed #ddd;
+      padding-bottom: 10px;
+    }
+
+    .lyrics-text {
+      font-size: 19px;
+      line-height: 2.1;
+      white-space: pre-line;
+      color: #222;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero-header">
+    <div class="photo-frame">
+      <img src="front_image.jpg" alt="Apostle Devadanam & Devamani" onerror="this.src='https://via.placeholder.com/150/7a0c11/ffffff?text=RCCM'" />
+    </div>
+    <div class="tribute-subtitle">అపో॥ కలిపెల దేవదానం, దేవమణి గార్లు</div>
+    <div class="church-title">క్రీస్తు పునరుత్థాన సంఘం</div>
+    <div class="badge-pill">పాటల పుస్తకం</div>
+  </header>
+
+  <div class="sticky-bar">
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" class="search-input" placeholder="పాట పేరు లేదా సంఖ్య టైప్ చేయండి..." oninput="handleSearch()" />
+      <span class="search-icon">🔍</span>
+    </div>
+  </div>
+
+  <main class="song-container" id="songsListWrapper"></main>
+
+  <div class="lyrics-view" id="lyricsScreen">
+    <div class="lyrics-topbar">
+      <button onclick="closeSong()">‹ వెనక్కి</button>
+      <div class="lyrics-tools">
+        <button class="tool-btn" onclick="changeFontSize(-2)">A-</button>
+        <button class="tool-btn" onclick="changeFontSize(2)">A+</button>
+      </div>
+    </div>
+    <div class="lyrics-body">
+      <h2 id="songDetailTitle" class="lyrics-title-big"></h2>
+      <div id="songDetailLyrics" class="lyrics-text"></div>
+    </div>
+  </div>
+
+  <script>
+    const songsData = [
+      {
+        id: 1,
+        title: "యెహోవా నా కాపరి",
+        category: "స్తుతి పాటలు",
+        lyrics: `యెహోవా నా కాపరి
+నాకు లేమి కలుగదు
+పచ్చిక గల చోట్ల నను పరుండజేయున్
+శాంతికరమైన జలముల యొద్ద నడుపున్`
+      },
+      {
+        id: 2,
+        title: "యేసు నామమే అతి మధురం",
+        category: "ఆరాధన పాటలు",
+        lyrics: `యేసు నామమే అతి మధురం
+యేసు నామమే అతి సుందరం
+జీవిత కాలమంతా కీర్తింతును
+నా రక్షకుడవు నీవే దేవా`
+      }
+    ];
+
+    let currentFontSize = 19;
+
+    function renderList(items) {
+      const wrapper = document.getElementById('songsListWrapper');
+      if (items.length === 0) {
+        wrapper.innerHTML = `<p style="text-align:center; padding: 40px; color:#888;">ఏ పాటలు కనుగొనబడలేదు.</p>`;
+        return;
+      }
+      wrapper.innerHTML = items.map(song => `
+        <div class="song-card" onclick="openSong(${song.id})">
+          <div class="song-info">
+            <div class="song-badge">${song.id}</div>
+            <div class="song-text-info">
+              <h4>${song.title}</h4>
+              <p>${song.category || 'పాటల పుస్తకం'}</p>
+            </div>
+          </div>
+          <div class="arrow-icon">›</div>
+        </div>
+      `).join('');
+    }
+
+    function handleSearch() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const filtered = songsData.filter(s => 
+        s.title.toLowerCase().includes(q) || 
+        s.id.toString() === q ||
+        (s.lyrics && s.lyrics.toLowerCase().includes(q))
+      );
+      renderList(filtered);
+    }
+
+    function openSong(id) {
+      const song = songsData.find(s => s.id === id);
+      if (!song) return;
+
+      document.getElementById('songDetailTitle').innerText = `${song.id}. ${song.title}`;
+      const lyricsEl = document.getElementById('songDetailLyrics');
+      lyricsEl.innerText = song.lyrics;
+      lyricsEl.style.fontSize = currentFontSize + 'px';
+
+      document.getElementById('lyricsScreen').style.display = 'flex';
+      window.scrollTo(0, 0);
+    }
+
+    function closeSong() {
+      document.getElementById('lyricsScreen').style.display = 'none';
+    }
+
+    function changeFontSize(change) {
+      currentFontSize = Math.min(32, Math.max(14, currentFontSize + change));
+      document.getElementById('songDetailLyrics').style.fontSize = currentFontSize + 'px';
+    }
+
+    renderList(songsData);
+  </script>
+</body>
+</html>
