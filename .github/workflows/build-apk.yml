@@ -23,10 +23,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+          java-version: '17'
 
       - name: Prepare Web Directory & Setup Capacitor
         run: |
@@ -39,11 +36,24 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Fix Duplicate Kotlin Classes
+        run: |
+          cat << 'EOF' >> android/app/build.gradle
+
+          configurations.all {
+              resolutionStrategy {
+                  force("org.jetbrains.kotlin:kotlin-stdlib:1.8.22")
+                  force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22")
+                  force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22")
+              }
+          }
+          EOF
+
       - name: Build APK with Gradle
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon -Dorg.gradle.jvmargs="-Xmx2048m -XX:MaxMetaspaceSize=512m"
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
